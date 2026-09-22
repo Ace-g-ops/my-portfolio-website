@@ -7,12 +7,14 @@ import NotFound from '@/pages/not-found';
 import {
   ArrowDownRight,
   ArrowUpRight,
-  Dribbble,
-  Instagram,
+  Braces,
+  Code2,
+  ExternalLink,
+  Github,
   Linkedin,
   Mail,
   Menu,
-  MoveRight,
+  Terminal,
   X,
 } from 'lucide-react';
 import {
@@ -23,6 +25,71 @@ import {
 } from 'wouter';
 
 const queryClient = new QueryClient();
+
+type Project = {
+  id: string;
+  name: string;
+  description: string;
+  context: string;
+  stack: string[];
+  year: string;
+  linkLabel: string;
+  href: string;
+  accent: 'coral' | 'ink' | 'lime';
+  visual: 'dashboard' | 'terminal' | 'system';
+};
+
+// PROJECT CONTENT
+// Replace these example entries with your real project names, descriptions,
+// technologies, and links. Add another object to create another project card.
+const projects: Project[] = [
+  {
+    id: 'signal-board',
+    name: 'Signal Board',
+    description:
+      'A real-time operations dashboard that turns noisy event streams into clear, actionable work.',
+    context: 'Full-stack product / Example project',
+    stack: ['TypeScript', 'React', 'Postgres'],
+    year: '2025',
+    linkLabel: 'Add your project link',
+    href: 'https://github.com/',
+    accent: 'coral',
+    visual: 'dashboard',
+  },
+  {
+    id: 'relay-api',
+    name: 'Relay API',
+    description:
+      'A dependable service layer for teams shipping integrations, with typed contracts and observable failure paths.',
+    context: 'Backend systems / Example project',
+    stack: ['Node.js', 'OpenAPI', 'Docker'],
+    year: '2024',
+    linkLabel: 'Add your project link',
+    href: 'https://github.com/',
+    accent: 'ink',
+    visual: 'terminal',
+  },
+  {
+    id: 'morrow',
+    name: 'Morrow',
+    description:
+      'A thoughtful planning tool designed around small daily decisions, fast feedback, and a calmer interface.',
+    context: 'Product engineering / Example project',
+    stack: ['Next.js', 'Prisma', 'UX'],
+    year: '2024',
+    linkLabel: 'Add your project link',
+    href: 'https://github.com/',
+    accent: 'lime',
+    visual: 'system',
+  },
+];
+
+const profile = {
+  displayName: 'Your Name',
+  monogram: 'YN',
+  role: 'Software engineer / Builder',
+  contact: 'hello@example.com',
+};
 
 function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -56,18 +123,19 @@ function Home() {
             data-testid="link-home"
             onClick={closeMenu}
           >
-            MV<span className="text-[hsl(var(--primary))]">.</span>
+            {profile.monogram}
+            <span className="text-[hsl(var(--primary))]">.</span>
           </a>
           <nav
             className={`${mobileMenuOpen ? 'flex' : 'hidden'} absolute left-4 right-4 top-[4.7rem] flex-col gap-5 rounded-2xl border border-[hsl(var(--foreground)/.14)] bg-[hsl(var(--card)/.98)] p-6 shadow-xl md:static md:flex md:flex-row md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0 md:shadow-none`}
             aria-label="Main navigation"
             data-testid="nav-main"
           >
-            <a href="#work" className="focus-ring eyebrow text-[hsl(var(--foreground))] transition-colors hover:text-[hsl(var(--primary))]" data-testid="link-work" onClick={closeMenu}>Work</a>
+            <a href="#work" className="focus-ring eyebrow text-[hsl(var(--foreground))] transition-colors hover:text-[hsl(var(--primary))]" data-testid="link-work" onClick={closeMenu}>Projects</a>
             <a href="#about" className="focus-ring eyebrow text-[hsl(var(--foreground))] transition-colors hover:text-[hsl(var(--primary))]" data-testid="link-about" onClick={closeMenu}>About</a>
-            <a href="#capabilities" className="focus-ring eyebrow text-[hsl(var(--foreground))] transition-colors hover:text-[hsl(var(--primary))]" data-testid="link-capabilities" onClick={closeMenu}>Capabilities</a>
+            <a href="#capabilities" className="focus-ring eyebrow text-[hsl(var(--foreground))] transition-colors hover:text-[hsl(var(--primary))]" data-testid="link-capabilities" onClick={closeMenu}>What I do</a>
             <a href="#contact" className="focus-ring inline-flex w-fit items-center gap-2 rounded-full bg-[hsl(var(--foreground))] px-4 py-2.5 text-xs font-bold text-[hsl(var(--background))] transition-transform hover:-translate-y-0.5" data-testid="link-contact" onClick={closeMenu}>
-              Let's talk <ArrowUpRight size={14} strokeWidth={2.5} />
+              Let&apos;s talk <ArrowUpRight size={14} strokeWidth={2.5} />
             </a>
           </nav>
           <button
@@ -90,33 +158,33 @@ function Home() {
             <div>
               <p className="hero-reveal eyebrow mb-7 flex items-center gap-3 text-[hsl(var(--primary))]" data-testid="text-hero-kicker">
                 <span className="inline-block h-2 w-2 rounded-full bg-[hsl(var(--primary))]" />
-                Independent creative director / New York + everywhere
+                Software engineer / building from anywhere
               </p>
               <h1 className="hero-reveal hero-reveal-delay-1 max-w-5xl text-[clamp(3.7rem,10vw,9rem)] font-extrabold leading-[.87] tracking-[-.095em]" data-testid="text-hero-title">
-                Make the <span className="serif text-[hsl(var(--primary))]">good</span><br />
-                stuff <span className="serif italic">matter.</span>
+                I build <span className="serif text-[hsl(var(--primary))]">useful</span><br />
+                things that <span className="serif italic">last.</span>
               </h1>
               <div className="hero-reveal hero-reveal-delay-2 mt-9 flex max-w-xl flex-col gap-7 sm:flex-row sm:items-end">
                 <p className="max-w-sm text-base leading-7 text-[hsl(var(--muted-foreground))]" data-testid="text-hero-intro">
-                  I help ambitious people turn fuzzy ideas into clear, memorable brands and digital experiences.
+                  I design, ship, and improve software for people who care about how a product works — not just how it looks.
                 </p>
                 <a href="#work" className="focus-ring group inline-flex w-fit items-center gap-3 border-b border-[hsl(var(--foreground))] pb-2 text-sm font-bold" data-testid="link-hero-work">
-                  See selected work <ArrowDownRight size={17} className="transition-transform group-hover:translate-x-1 group-hover:translate-y-1" />
+                  See selected projects <ArrowDownRight size={17} className="transition-transform group-hover:translate-x-1 group-hover:translate-y-1" />
                 </a>
               </div>
             </div>
             <div className="hero-reveal hero-reveal-delay-3 relative hidden h-56 lg:block" aria-hidden="true">
               <div className="hero-orb absolute right-8 top-3 h-44 w-44 rounded-full border border-[hsl(var(--foreground)/.35)] bg-[hsl(var(--accent))] shadow-[1.5rem_1.3rem_0_hsl(var(--primary))]">
                 <div className="absolute inset-5 rounded-full border border-[hsl(var(--foreground)/.4)]" />
-                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-mono text-[.58rem] font-bold uppercase tracking-[.24em]">make / repeat</span>
+                <Terminal className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" size={40} strokeWidth={1.5} />
               </div>
             </div>
           </div>
         </section>
 
-        <div className="overflow-hidden border-y border-[hsl(var(--foreground)/.16)] py-4" aria-label="Areas of practice" data-testid="marquee-practice">
+        <div className="overflow-hidden border-y border-[hsl(var(--foreground)/.16)] py-4" aria-label="Areas of engineering practice" data-testid="marquee-practice">
           <div className="marquee-track">
-            {['Brand worlds', 'Digital products', 'Campaigns', 'Creative direction', 'Brand worlds', 'Digital products', 'Campaigns', 'Creative direction'].map((item, index) => (
+            {['Product engineering', 'Backend systems', 'TypeScript', 'Technical problem solving', 'Product engineering', 'Backend systems', 'TypeScript', 'Technical problem solving'].map((item, index) => (
               <span className="marquee-item whitespace-nowrap font-mono text-[.65rem] font-medium uppercase tracking-[.16em]" key={`${item}-${index}`} data-testid={`text-practice-${index}`}>
                 {item}
               </span>
@@ -127,82 +195,77 @@ function Home() {
         <section id="work" className="section-wrap py-28 md:py-40" data-testid="section-work">
           <div className="reveal mb-14 flex items-end justify-between gap-6 md:mb-20">
             <div>
-              <p className="eyebrow mb-4 text-[hsl(var(--primary))]" data-testid="text-work-kicker">01 / Selected work</p>
+              <p className="eyebrow mb-4 text-[hsl(var(--primary))]" data-testid="text-work-kicker">01 / Selected projects</p>
               <h2 className="max-w-2xl text-4xl font-extrabold leading-[.95] tracking-[-.065em] md:text-6xl" data-testid="text-work-heading">
-                A few things I’m proud to have <span className="serif italic font-normal">made.</span>
+                A few systems I&apos;m proud to have <span className="serif italic font-normal">shipped.</span>
               </h2>
             </div>
             <p className="hidden max-w-[13rem] text-right text-sm leading-6 text-[hsl(var(--muted-foreground))] md:block" data-testid="text-work-note">
-              Small roster.<br />Big attention to detail.
+              Example entries.<br />Replace with your work.
             </p>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-[1.18fr_.82fr]">
-            <article className="project-card reveal" data-testid="card-project-field">
-              <div className="project-visual project-visual-coral">
-                <span className="absolute left-6 top-6 z-10 eyebrow text-[#f7f3eb]">01 — Brand + digital</span>
-                <div className="project-ui-window">
-                  <div className="window-topbar"><span className="window-dot" /><span className="window-dot" /><span className="window-dot" /></div>
-                  <div className="project-coral-art" />
+          <div className="grid gap-8 lg:grid-cols-2" data-testid="projects-grid">
+            {projects.map((project, index) => (
+              <article
+                className={`project-card reveal ${index === 1 ? 'reveal-delay-1' : ''} ${index === 2 ? 'lg:col-span-2' : ''}`}
+                data-testid={`card-project-${project.id}`}
+                key={project.id}
+              >
+                <div className={`project-visual project-visual-${project.accent}`}>
+                  <span className={`absolute left-6 top-6 z-10 eyebrow ${project.accent === 'lime' ? 'text-[#172033]' : 'text-[#f7f3eb]'}`}>
+                    {String(index + 1).padStart(2, '0')} — {project.context}
+                  </span>
+                  {project.visual === 'dashboard' && (
+                    <div className="project-code-window">
+                      <div className="window-topbar"><span className="window-dot" /><span className="window-dot" /><span className="window-dot" /></div>
+                      <div className="code-dashboard">
+                        <div className="code-sidebar"><span /><span /><span /><span /></div>
+                        <div className="code-main"><div className="code-line code-line-wide" /><div className="code-line" /><div className="code-chart" /></div>
+                      </div>
+                    </div>
+                  )}
+                  {project.visual === 'terminal' && (
+                    <div className="terminal-window">
+                      <div className="terminal-prompt"><span className="text-[hsl(var(--accent))]">$</span> pnpm deploy</div>
+                      <div className="terminal-output">building for production<span className="terminal-dots">...</span></div>
+                      <div className="terminal-output text-[hsl(var(--accent))]">✓ deployment ready</div>
+                      <div className="terminal-cursor" />
+                    </div>
+                  )}
+                  {project.visual === 'system' && (
+                    <div className="system-art" aria-hidden="true">
+                      <Braces size={82} strokeWidth={1} />
+                      <div className="system-node system-node-one" />
+                      <div className="system-node system-node-two" />
+                      <div className="system-node system-node-three" />
+                    </div>
+                  )}
+                  <span className={`absolute bottom-6 right-6 z-10 font-mono text-xs ${project.accent === 'lime' ? 'text-[#172033]' : 'text-[#f7f3eb]'}`}>
+                    {project.name.toUpperCase()} / {project.year}
+                  </span>
                 </div>
-                <span className="absolute bottom-6 right-6 z-10 font-mono text-xs text-[#f7f3eb]">FIELD GUIDE / 2024</span>
-              </div>
-              <div className="p-7 md:p-9">
-                <div className="mb-7 flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="text-3xl font-extrabold tracking-[-.06em]" data-testid="title-project-field">Field Notes</h3>
-                    <p className="mt-2 text-sm text-[hsl(var(--muted-foreground))]" data-testid="text-project-field-description">A new identity for curious people and the places they go.</p>
+                <div className="p-7 md:p-9">
+                  <div className="mb-7 flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-3xl font-extrabold tracking-[-.06em]" data-testid={`title-project-${project.id}`}>{project.name}</h3>
+                      <p className="mt-2 max-w-xl text-sm leading-6 text-[hsl(var(--muted-foreground))]" data-testid={`text-project-${project.id}-description`}>{project.description}</p>
+                    </div>
                   </div>
-                  <span className="rounded-full bg-[hsl(var(--muted))] px-3 py-1 font-mono text-[.6rem] uppercase tracking-[.12em]" data-testid="status-project-field">Live</span>
-                </div>
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div className="flex gap-2">
-                    {['Strategy', 'Identity', 'Web'].map((tag) => <span className="rounded-full border border-[hsl(var(--foreground)/.15)] px-3 py-1.5 font-mono text-[.58rem] uppercase tracking-[.1em]" key={tag} data-testid={`tag-field-${tag.toLowerCase()}`}>{tag}</span>)}
+                  <div className="flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex flex-wrap gap-2" aria-label={`${project.name} technologies`}>
+                      {project.stack.map((tag) => (
+                        <span className="rounded-full border border-[hsl(var(--foreground)/.15)] px-3 py-1.5 font-mono text-[.58rem] uppercase tracking-[.1em]" key={tag} data-testid={`tag-project-${project.id}-${tag.toLowerCase().replace(/\W+/g, '-')}`}>{tag}</span>
+                      ))}
+                    </div>
+                    <a href={project.href} target="_blank" rel="noreferrer" className="focus-ring group inline-flex items-center gap-2 text-sm font-bold" data-testid={`link-project-${project.id}`}>
+                      {project.linkLabel} <ExternalLink size={15} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    </a>
                   </div>
-                  <a href="#contact" className="focus-ring group inline-flex items-center gap-2 text-sm font-bold" data-testid="link-project-field">
-                    Read the story <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </a>
                 </div>
-              </div>
-            </article>
-
-            <article className="project-card reveal reveal-delay-1" data-testid="card-project-still">
-              <div className="project-visual project-visual-ink">
-                <span className="absolute left-6 top-6 z-10 eyebrow text-[#f1ede3]">02 — Campaign</span>
-                <div className="project-ink-poster">
-                  <div className="poster-mark">STILL<br />MOVING</div>
-                  <span className="poster-title">Take<br />your<br />time.</span>
-                  <span className="font-mono text-[.57rem] uppercase tracking-[.15em]">A film series for the in-between</span>
-                </div>
-                <span className="absolute bottom-6 right-6 z-10 font-mono text-xs text-[#f1ede3]">STILL MOVING / 2023</span>
-              </div>
-              <div className="p-7 md:p-9">
-                <p className="eyebrow mb-5 text-[hsl(var(--primary))]">Culture / Editorial</p>
-                <h3 className="text-3xl font-extrabold tracking-[-.06em]" data-testid="title-project-still">Still Moving</h3>
-                <p className="mt-2 max-w-sm text-sm leading-6 text-[hsl(var(--muted-foreground))]" data-testid="text-project-still-description">A campaign about finding momentum without rushing the moment.</p>
-                <a href="#contact" className="focus-ring group mt-8 inline-flex items-center gap-2 text-sm font-bold" data-testid="link-project-still">
-                  Explore project <MoveRight size={16} className="transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
-            </article>
+              </article>
+            ))}
           </div>
-
-          <article className="project-card reveal mt-8 grid lg:grid-cols-[.8fr_1.2fr]" data-testid="card-project-morrow">
-            <div className="project-visual project-visual-lime min-h-[20rem] lg:min-h-[25rem]">
-              <span className="absolute left-6 top-6 z-10 eyebrow">03 — Product direction</span>
-              <div className="project-lime-art"><span className="project-lime-word">morrow</span></div>
-            </div>
-            <div className="flex flex-col justify-between p-7 md:p-10">
-              <div>
-                <p className="eyebrow mb-5 text-[hsl(var(--primary))]">Wellbeing / Digital product</p>
-                <h3 className="max-w-md text-4xl font-extrabold leading-[.92] tracking-[-.07em] md:text-6xl" data-testid="title-project-morrow">A softer way to plan what’s next.</h3>
-                <p className="mt-6 max-w-md text-sm leading-7 text-[hsl(var(--muted-foreground))]" data-testid="text-project-morrow-description">Naming, voice, and an intuitive ritual for a new kind of daily planner.</p>
-              </div>
-              <a href="#contact" className="focus-ring group mt-10 inline-flex w-fit items-center gap-2 border-b border-[hsl(var(--foreground))] pb-2 text-sm font-bold" data-testid="link-project-morrow">
-                See the thinking <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </a>
-            </div>
-          </article>
         </section>
 
         <section id="about" className="bg-[hsl(var(--secondary))] py-28 text-[hsl(var(--secondary-foreground))] md:py-40" data-testid="section-about">
@@ -211,15 +274,15 @@ function Home() {
               <p className="eyebrow mb-6 text-[hsl(var(--accent))]" data-testid="text-about-kicker">02 / A little context</p>
               <div className="flex items-center gap-4">
                 <span className="h-px w-10 bg-[hsl(var(--accent))]" />
-                <span className="font-mono text-[.66rem] uppercase tracking-[.14em] text-[hsl(var(--secondary-foreground)/.6)]">Mara Velez, creative director</span>
+                <span className="font-mono text-[.66rem] uppercase tracking-[.14em] text-[hsl(var(--secondary-foreground)/.6)]">{profile.displayName}, software engineer</span>
               </div>
             </div>
             <div className="reveal reveal-delay-1">
               <h2 className="max-w-4xl text-4xl font-extrabold leading-[.97] tracking-[-.065em] md:text-7xl" data-testid="text-about-heading">
-                I’m interested in the space between <span className="serif italic font-normal text-[hsl(var(--accent))]">a sharp idea</span> and a feeling you can’t quite name.
+                I care about the space between <span className="serif italic font-normal text-[hsl(var(--accent))]">a good idea</span> and a product people can rely on.
               </h2>
               <p className="mt-10 max-w-2xl text-lg leading-8 text-[hsl(var(--secondary-foreground)/.66)]" data-testid="text-about-story">
-                For the last decade, I’ve partnered with founders, editors, and teams who care about doing work with a pulse. My role is to find the honest signal, give it a distinct shape, and help it travel — from first sketch to final launch.
+                I like turning ambiguous problems into clear systems. That might mean shaping a calm interface, designing an API that can evolve, or tracing a hard bug until the whole team understands what happened. I&apos;m at my best close to the product and close to the people using it.
               </p>
               <a href="#contact" className="focus-ring group mt-10 inline-flex items-center gap-3 border-b border-[hsl(var(--accent)/.65)] pb-2 text-sm font-bold text-[hsl(var(--accent))]" data-testid="link-about-contact">
                 Start a conversation <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -231,15 +294,15 @@ function Home() {
         <section id="capabilities" className="section-wrap py-28 md:py-40" data-testid="section-capabilities">
           <div className="reveal grid gap-12 lg:grid-cols-[.66fr_1.34fr]">
             <div>
-              <p className="eyebrow mb-5 text-[hsl(var(--primary))]" data-testid="text-capabilities-kicker">03 / How I can help</p>
-              <h2 className="max-w-xs text-4xl font-extrabold leading-[.94] tracking-[-.06em] md:text-6xl" data-testid="text-capabilities-heading">The right kind of <span className="serif italic font-normal">help.</span></h2>
+              <p className="eyebrow mb-5 text-[hsl(var(--primary))]" data-testid="text-capabilities-kicker">03 / What I work on</p>
+              <h2 className="max-w-xs text-4xl font-extrabold leading-[.94] tracking-[-.06em] md:text-6xl" data-testid="text-capabilities-heading">Good engineering is <span className="serif italic font-normal">care.</span></h2>
             </div>
             <div>
               {[
-                ['01', 'Brand strategy', 'The clear point of view underneath everything. Positioning, naming, narrative, and a plan for making it matter.'],
-                ['02', 'Identity systems', 'A visual and verbal language with enough range to grow, and enough character to be remembered.'],
-                ['03', 'Digital direction', 'Useful, expressive experiences that turn an audience into participants — not just visitors.'],
-                ['04', 'Creative partnership', 'A senior brain in the room when you need one. Calm when it’s messy, opinionated when it counts.'],
+                ['01', 'Product engineering', 'End-to-end features that connect a clear user need to reliable, maintainable software.'],
+                ['02', 'Frontend systems', 'Accessible interfaces with thoughtful states, strong performance, and a visual language that holds together.'],
+                ['03', 'Backend foundations', 'Typed APIs, data models, integrations, and services that make the next change easier than the last.'],
+                ['04', 'Technical partnership', 'A calm, curious collaborator for architecture decisions, debugging, and the messy middle of shipping.'],
               ].map(([number, title, description], index) => (
                 <div className={`capability-row reveal reveal-delay-${Math.min(index + 1, 3)} grid gap-3 py-6 md:grid-cols-[3rem_1fr_1fr] md:items-start md:gap-8`} key={number} data-testid={`row-capability-${number}`}>
                   <span className="font-mono text-xs text-[hsl(var(--primary))]" data-testid={`number-capability-${number}`}>{number}</span>
@@ -256,13 +319,13 @@ function Home() {
             <div className="relative z-10 max-w-3xl">
               <p className="eyebrow mb-7 text-[hsl(var(--accent))]" data-testid="text-contact-kicker">04 / Your turn</p>
               <h2 className="text-5xl font-extrabold leading-[.9] tracking-[-.08em] md:text-8xl" data-testid="text-contact-heading">
-                Have a good<br /><span className="serif italic font-normal text-[hsl(var(--accent))]">one?</span> Let’s talk.
+                Have a hard<br /><span className="serif italic font-normal text-[hsl(var(--accent))]">problem?</span> Let&apos;s talk.
               </h2>
               <p className="mt-8 max-w-md text-base leading-7 text-[hsl(var(--secondary-foreground)/.68)]" data-testid="text-contact-description">
-                Tell me what you’re making, what’s stuck, or what you can’t stop thinking about. I’m usually at my best somewhere in the middle of a good question.
+                Tell me what you&apos;re building, what&apos;s stuck, or what you want to make more reliable. I&apos;m usually at my best somewhere in the middle of a good question.
               </p>
-              <a href="mailto:hello@maravelez.studio" className="contact-link focus-ring mt-10 inline-flex items-center gap-3 border-b border-[hsl(var(--secondary-foreground)/.5)] pb-2 text-lg font-bold" data-testid="link-email">
-                <Mail size={19} /> hello@maravelez.studio
+              <a href={`mailto:${profile.contact}`} className="contact-link focus-ring mt-10 inline-flex items-center gap-3 border-b border-[hsl(var(--secondary-foreground)/.5)] pb-2 text-lg font-bold" data-testid="link-email">
+                <Mail size={19} /> {profile.contact}
               </a>
             </div>
           </div>
@@ -271,16 +334,16 @@ function Home() {
 
       <footer className="section-wrap flex flex-col gap-8 py-10 md:flex-row md:items-center md:justify-between" data-testid="site-footer">
         <div>
-          <p className="text-sm font-extrabold tracking-[-.05em]" data-testid="text-footer-name">Mara Velez<span className="text-[hsl(var(--primary))]">.</span></p>
-          <p className="mt-1 font-mono text-[.62rem] uppercase tracking-[.13em] text-[hsl(var(--muted-foreground))]" data-testid="text-footer-location">Independent creative director / NYC</p>
+          <p className="text-sm font-extrabold tracking-[-.05em]" data-testid="text-footer-name">{profile.displayName}<span className="text-[hsl(var(--primary))]">.</span></p>
+          <p className="mt-1 font-mono text-[.62rem] uppercase tracking-[.13em] text-[hsl(var(--muted-foreground))]" data-testid="text-footer-location">{profile.role}</p>
         </div>
         <div className="flex items-center gap-5">
           <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="focus-ring text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--foreground))]" aria-label="LinkedIn" data-testid="link-linkedin"><Linkedin size={17} /></a>
-          <a href="https://dribbble.com" target="_blank" rel="noreferrer" className="focus-ring text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--foreground))]" aria-label="Dribbble" data-testid="link-dribbble"><Dribbble size={17} /></a>
-          <a href="https://www.instagram.com" target="_blank" rel="noreferrer" className="focus-ring text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--foreground))]" aria-label="Instagram" data-testid="link-instagram"><Instagram size={17} /></a>
+          <a href="https://github.com/" target="_blank" rel="noreferrer" className="focus-ring text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--foreground))]" aria-label="GitHub" data-testid="link-github"><Github size={17} /></a>
+          <a href="https://github.com/" target="_blank" rel="noreferrer" className="focus-ring text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--foreground))]" aria-label="Code profile" data-testid="link-code-profile"><Code2 size={17} /></a>
           <a href="#top" className="focus-ring ml-4 inline-flex items-center gap-2 font-mono text-[.62rem] uppercase tracking-[.1em]" data-testid="link-back-to-top">Back to top <ArrowUpRight size={14} /></a>
         </div>
-        <p className="font-mono text-[.6rem] uppercase tracking-[.12em] text-[hsl(var(--muted-foreground))]" data-testid="text-footer-copyright">© 2025 / Make good things.</p>
+        <p className="font-mono text-[.6rem] uppercase tracking-[.12em] text-[hsl(var(--muted-foreground))]" data-testid="text-footer-copyright">© 2025 / Ship with care.</p>
       </footer>
     </div>
   );
@@ -288,8 +351,6 @@ function Home() {
 
 function Router() {
   return (
-    // Keep a shared shell (sidebar, navbar) outside the boundary so it
-    // survives a page crash.
     <RoutedErrorBoundary>
       <Switch>
         <Route path="/" component={Home} />
