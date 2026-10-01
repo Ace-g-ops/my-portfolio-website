@@ -177,6 +177,24 @@
   box-shadow: 0 28px 70px rgba(23, 31, 50, .14);
 }
 
+.project-screenshot-link {
+  overflow: hidden;
+  background: #101219;
+  border-bottom: 1px solid hsl(var(--foreground) / .13);
+}
+
+.project-screenshot {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1024 / 460;
+  object-fit: contain;
+  transition: transform .45s ease;
+}
+
+.project-screenshot-link:hover .project-screenshot {
+  transform: scale(1.025);
+}
+
 .project-code-window,
 .terminal-window {
   position: absolute;

@@ -4,10 +4,10 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
+import { projects } from '@/data/projects';
 import {
   ArrowDownRight,
   ArrowUpRight,
-  Braces,
   Code2,
   ExternalLink,
   Github,
@@ -25,64 +25,6 @@ import {
 } from 'wouter';
 
 const queryClient = new QueryClient();
-
-type Project = {
-  id: string;
-  name: string;
-  description: string;
-  context: string;
-  stack: string[];
-  year: string;
-  linkLabel: string;
-  href: string;
-  accent: 'coral' | 'ink' | 'lime';
-  visual: 'dashboard' | 'terminal' | 'system';
-};
-
-// PROJECT CONTENT
-// Replace these example entries with your real project names, descriptions,
-// technologies, and links. Add another object to create another project card.
-const projects: Project[] = [
-  {
-    id: 'signal-board',
-    name: 'Signal Board',
-    description:
-      'A real-time operations dashboard that turns noisy event streams into clear, actionable work.',
-    context: 'Full-stack product / Example project',
-    stack: ['TypeScript', 'React', 'Postgres'],
-    year: '2025',
-    linkLabel: 'Add your project link',
-    href: 'https://github.com/',
-    accent: 'coral',
-    visual: 'dashboard',
-  },
-  {
-    id: 'relay-api',
-    name: 'Relay API',
-    description:
-      'A dependable service layer for teams shipping integrations, with typed contracts and observable failure paths.',
-    context: 'Backend systems / Example project',
-    stack: ['Node.js', 'OpenAPI', 'Docker'],
-    year: '2024',
-    linkLabel: 'Add your project link',
-    href: 'https://github.com/',
-    accent: 'ink',
-    visual: 'terminal',
-  },
-  {
-    id: 'morrow',
-    name: 'Morrow',
-    description:
-      'A thoughtful planning tool designed around small daily decisions, fast feedback, and a calmer interface.',
-    context: 'Product engineering / Example project',
-    stack: ['Next.js', 'Prisma', 'UX'],
-    year: '2024',
-    linkLabel: 'Add your project link',
-    href: 'https://github.com/',
-    accent: 'lime',
-    visual: 'system',
-  },
-];
 
 const profile = {
   displayName: 'Your Name',
@@ -201,65 +143,38 @@ function Home() {
               </h2>
             </div>
             <p className="hidden max-w-[13rem] text-right text-sm leading-6 text-[hsl(var(--muted-foreground))] md:block" data-testid="text-work-note">
-              Example entries.<br />Replace with your work.
+              Four projects.<br />Different problems, working software.
             </p>
           </div>
 
           <div className="grid gap-8 lg:grid-cols-2" data-testid="projects-grid">
             {projects.map((project, index) => (
               <article
-                className={`project-card reveal ${index === 1 ? 'reveal-delay-1' : ''} ${index === 2 ? 'lg:col-span-2' : ''}`}
+                className={`project-card reveal flex flex-col ${index % 2 === 1 ? 'reveal-delay-1' : ''}`}
                 data-testid={`card-project-${project.id}`}
                 key={project.id}
               >
-                <div className={`project-visual project-visual-${project.accent}`}>
-                  <span className={`absolute left-6 top-6 z-10 eyebrow ${project.accent === 'lime' ? 'text-[#172033]' : 'text-[#f7f3eb]'}`}>
-                    {String(index + 1).padStart(2, '0')} — {project.context}
-                  </span>
-                  {project.visual === 'dashboard' && (
-                    <div className="project-code-window">
-                      <div className="window-topbar"><span className="window-dot" /><span className="window-dot" /><span className="window-dot" /></div>
-                      <div className="code-dashboard">
-                        <div className="code-sidebar"><span /><span /><span /><span /></div>
-                        <div className="code-main"><div className="code-line code-line-wide" /><div className="code-line" /><div className="code-chart" /></div>
-                      </div>
-                    </div>
-                  )}
-                  {project.visual === 'terminal' && (
-                    <div className="terminal-window">
-                      <div className="terminal-prompt"><span className="text-[hsl(var(--accent))]">$</span> pnpm deploy</div>
-                      <div className="terminal-output">building for production<span className="terminal-dots">...</span></div>
-                      <div className="terminal-output text-[hsl(var(--accent))]">✓ deployment ready</div>
-                      <div className="terminal-cursor" />
-                    </div>
-                  )}
-                  {project.visual === 'system' && (
-                    <div className="system-art" aria-hidden="true">
-                      <Braces size={82} strokeWidth={1} />
-                      <div className="system-node system-node-one" />
-                      <div className="system-node system-node-two" />
-                      <div className="system-node system-node-three" />
-                    </div>
-                  )}
-                  <span className={`absolute bottom-6 right-6 z-10 font-mono text-xs ${project.accent === 'lime' ? 'text-[#172033]' : 'text-[#f7f3eb]'}`}>
-                    {project.name.toUpperCase()} / {project.year}
-                  </span>
-                </div>
-                <div className="p-7 md:p-9">
+                <a href={project.href} target="_blank" rel="noopener noreferrer" className="project-screenshot-link focus-ring block" aria-label={`Open ${project.name} (new tab)`} data-testid={`link-preview-${project.id}`}>
+                  <img src={project.image} alt={project.imageAlt} width={1024} height={460} loading="lazy" className="project-screenshot" data-testid={`img-project-${project.id}`} />
+                </a>
+                <div className="flex flex-1 flex-col p-7 md:p-9">
+                  <p className="eyebrow mb-4 text-[hsl(var(--primary))]" data-testid={`text-project-category-${project.id}`}>
+                    {String(index + 1).padStart(2, '0')} / {project.context}
+                  </p>
                   <div className="mb-7 flex items-start justify-between gap-4">
                     <div>
                       <h3 className="text-3xl font-extrabold tracking-[-.06em]" data-testid={`title-project-${project.id}`}>{project.name}</h3>
                       <p className="mt-2 max-w-xl text-sm leading-6 text-[hsl(var(--muted-foreground))]" data-testid={`text-project-${project.id}-description`}>{project.description}</p>
                     </div>
                   </div>
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-                    <div className="flex flex-wrap gap-2" aria-label={`${project.name} technologies`}>
-                      {project.stack.map((tag) => (
+                  <div className="mt-auto flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex flex-wrap gap-2" aria-label={`${project.name} features`}>
+                      {project.tags.map((tag) => (
                         <span className="rounded-full border border-[hsl(var(--foreground)/.15)] px-3 py-1.5 font-mono text-[.58rem] uppercase tracking-[.1em]" key={tag} data-testid={`tag-project-${project.id}-${tag.toLowerCase().replace(/\W+/g, '-')}`}>{tag}</span>
                       ))}
                     </div>
-                    <a href={project.href} target="_blank" rel="noreferrer" className="focus-ring group inline-flex items-center gap-2 text-sm font-bold" data-testid={`link-project-${project.id}`}>
-                      {project.linkLabel} <ExternalLink size={15} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <a href={project.href} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${project.name} (new tab)`} className="focus-ring group inline-flex items-center gap-2 text-sm font-bold" data-testid={`link-project-${project.id}`}>
+                      Visit project <ExternalLink size={15} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                     </a>
                   </div>
                 </div>
