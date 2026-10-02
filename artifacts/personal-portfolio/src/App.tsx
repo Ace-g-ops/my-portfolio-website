@@ -38,6 +38,11 @@ const projects: Project[] = [
     alt: 'Game start screen with avatar selection and player options',
   },
   {
+    id: 'project-02',
+    image: 'projects/scriptsculpt.png',
+    alt: 'Scriptsculpt homepage with the headline Before the next call sheet and a signal-monitor illustration',
+  },
+  {
     id: 'project-03',
     image: 'projects/project-03.png',
     alt: 'Store density mapping website displayed on desktop and mobile',
