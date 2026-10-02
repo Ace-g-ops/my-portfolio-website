@@ -4,6 +4,7 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
+import { projects } from '@/data/projects';
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -23,36 +24,6 @@ import {
 } from 'wouter';
 
 const queryClient = new QueryClient();
-
-type Project = {
-  id: string;
-  image: string;
-  alt: string;
-};
-
-// Images stay in the user's upload order. Project metadata will be supplied later.
-const projects: Project[] = [
-  {
-    id: 'project-01',
-    image: 'projects/project-01.png',
-    alt: 'Game start screen with avatar selection and player options',
-  },
-  {
-    id: 'project-02',
-    image: 'projects/scriptsculpt.png',
-    alt: 'Scriptsculpt homepage with the headline Before the next call sheet and a signal-monitor illustration',
-  },
-  {
-    id: 'project-03',
-    image: 'projects/project-03.png',
-    alt: 'Store density mapping website displayed on desktop and mobile',
-  },
-  {
-    id: 'project-04',
-    image: 'projects/project-04.png',
-    alt: 'AI image creation app sign-in screen',
-  },
-];
 
 const profile = {
   displayName: 'Your Name',
@@ -179,16 +150,31 @@ function Home() {
                 data-testid={`card-project-${project.id}`}
                 key={project.id}
               >
-                <img
-                  src={`${import.meta.env.BASE_URL}${project.image}`}
-                  alt={project.alt}
-                  width={1024}
-                  height={index === 3 ? 456 : index === 2 ? 452 : 459}
-                  loading="lazy"
-                  decoding="async"
-                  className="block h-auto w-full"
-                  data-testid={`image-${project.id}`}
-                />
+                <a href={project.href} target="_blank" rel="noopener noreferrer" className="project-screenshot-link focus-ring block" aria-label={`Visit ${project.name}`}>
+                  <img
+                    src={`${import.meta.env.BASE_URL}${project.image}`}
+                    alt={project.imageAlt}
+                    width={1024}
+                    height={460}
+                    loading="lazy"
+                    decoding="async"
+                    className="project-screenshot"
+                    data-testid={`image-${project.id}`}
+                  />
+                </a>
+                <div className="p-6 md:p-8">
+                  <h3 className="text-2xl font-bold tracking-[-.04em]" data-testid={`title-${project.id}`}>{project.name}</h3>
+                  <p className="mt-4 text-sm leading-7 text-[hsl(var(--muted-foreground))]" data-testid={`description-${project.id}`}>{project.description}</p>
+                  <p className="eyebrow mt-6 mb-3">Tech stack</p>
+                  <ul className="flex flex-wrap gap-2" aria-label={`${project.name} tech stack`} data-testid={`stack-${project.id}`}>
+                    {project.stack.map((technology) => (
+                      <li key={technology} className="rounded-full border border-[hsl(var(--foreground)/.15)] px-3 py-1.5 font-mono text-xs">{technology}</li>
+                    ))}
+                  </ul>
+                  <a href={project.href} target="_blank" rel="noopener noreferrer" className="focus-ring mt-6 inline-flex items-center gap-2 border-b border-[hsl(var(--foreground)/.3)] pb-1 text-sm font-bold" data-testid={`link-${project.id}`}>
+                    Visit project <ArrowUpRight size={16} />
+                  </a>
+                </div>
               </article>
             ))}
           </div>
