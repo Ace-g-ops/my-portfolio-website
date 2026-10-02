@@ -38,11 +38,6 @@ const projects: Project[] = [
     alt: 'Game start screen with avatar selection and player options',
   },
   {
-    id: 'project-02',
-    image: 'projects/project-02.png',
-    alt: 'Second uploaded game screenshot with avatar selection and player options',
-  },
-  {
     id: 'project-03',
     image: 'projects/project-03.png',
     alt: 'Store density mapping website displayed on desktop and mobile',
