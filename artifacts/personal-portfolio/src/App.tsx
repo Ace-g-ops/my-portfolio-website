@@ -8,9 +8,7 @@ import { projects } from '@/data/projects';
 import {
   ArrowDownRight,
   ArrowUpRight,
-  Code2,
   Github,
-  Linkedin,
   Mail,
   Menu,
   Terminal,
@@ -26,10 +24,11 @@ import {
 const queryClient = new QueryClient();
 
 const profile = {
-  displayName: 'Your Name',
-  monogram: 'YN',
+  displayName: 'Victor Ajibua',
+  monogram: 'VA',
   role: 'Software engineer',
-  contact: 'hello@example.com',
+  contact: 'Victorajibua14@gmail.com',
+  github: 'https://github.com/Ace-g-ops',
 };
 
 function Home() {
@@ -250,9 +249,7 @@ function Home() {
           <p className="mt-1 font-mono text-[.62rem] uppercase tracking-[.13em] text-[hsl(var(--muted-foreground))]" data-testid="text-footer-location">{profile.role}</p>
         </div>
         <div className="flex items-center gap-5">
-          <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="focus-ring text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--foreground))]" aria-label="LinkedIn" data-testid="link-linkedin"><Linkedin size={17} /></a>
-          <a href="https://github.com/" target="_blank" rel="noreferrer" className="focus-ring text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--foreground))]" aria-label="GitHub" data-testid="link-github"><Github size={17} /></a>
-          <a href="https://github.com/" target="_blank" rel="noreferrer" className="focus-ring text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--foreground))]" aria-label="Code profile" data-testid="link-code-profile"><Code2 size={17} /></a>
+          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="focus-ring inline-flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--foreground))]" aria-label="Victor Ajibua on GitHub" data-testid="link-github"><Github size={17} /> GitHub</a>
           <a href="#top" className="focus-ring ml-4 inline-flex items-center gap-2 font-mono text-[.62rem] uppercase tracking-[.1em]" data-testid="link-back-to-top">Back to top <ArrowUpRight size={14} /></a>
         </div>
         <p className="font-mono text-[.6rem] uppercase tracking-[.12em] text-[hsl(var(--muted-foreground))]" data-testid="text-footer-copyright">© 2025 / Ship with care.</p>
