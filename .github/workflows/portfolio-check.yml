@@ -1,0 +1,46 @@
+name: Portfolio check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-check-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  portfolio:
+    name: Portfolio typecheck and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PORT: "8080"
+      BASE_PATH: /
+    steps:
+      - name: Check out workspace
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck portfolio and referenced library
+        run: pnpm run typecheck:portfolio
+
+      - name: Build portfolio
+        run: pnpm run build:portfolio
