@@ -4,12 +4,10 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
-import { projects } from '@/data/projects';
 import {
   ArrowDownRight,
   ArrowUpRight,
   Code2,
-  ExternalLink,
   Github,
   Linkedin,
   Mail,
@@ -25,6 +23,36 @@ import {
 } from 'wouter';
 
 const queryClient = new QueryClient();
+
+type Project = {
+  id: string;
+  image: string;
+  alt: string;
+};
+
+// Images stay in the user's upload order. Project metadata will be supplied later.
+const projects: Project[] = [
+  {
+    id: 'project-01',
+    image: 'projects/project-01.png',
+    alt: 'Game start screen with avatar selection and player options',
+  },
+  {
+    id: 'project-02',
+    image: 'projects/project-02.png',
+    alt: 'Second uploaded game screenshot with avatar selection and player options',
+  },
+  {
+    id: 'project-03',
+    image: 'projects/project-03.png',
+    alt: 'Store density mapping website displayed on desktop and mobile',
+  },
+  {
+    id: 'project-04',
+    image: 'projects/project-04.png',
+    alt: 'AI image creation app sign-in screen',
+  },
+];
 
 const profile = {
   displayName: 'Your Name',
@@ -139,45 +167,28 @@ function Home() {
             <div>
               <p className="eyebrow mb-4 text-[hsl(var(--primary))]" data-testid="text-work-kicker">01 / Selected projects</p>
               <h2 className="max-w-2xl text-4xl font-extrabold leading-[.95] tracking-[-.065em] md:text-6xl" data-testid="text-work-heading">
-                A few systems I&apos;m proud to have <span className="serif italic font-normal">shipped.</span>
+                A selection of <span className="serif italic font-normal">my work.</span>
               </h2>
             </div>
-            <p className="hidden max-w-[13rem] text-right text-sm leading-6 text-[hsl(var(--muted-foreground))] md:block" data-testid="text-work-note">
-              Four projects.<br />Different problems, working software.
-            </p>
           </div>
 
           <div className="grid gap-8 lg:grid-cols-2" data-testid="projects-grid">
             {projects.map((project, index) => (
               <article
-                className={`project-card reveal flex flex-col ${index % 2 === 1 ? 'reveal-delay-1' : ''}`}
+                className={`project-card reveal ${index % 2 === 1 ? 'reveal-delay-1' : ''}`}
                 data-testid={`card-project-${project.id}`}
                 key={project.id}
               >
-                <a href={project.href} target="_blank" rel="noopener noreferrer" className="project-screenshot-link focus-ring block" aria-label={`Open ${project.name} (new tab)`} data-testid={`link-preview-${project.id}`}>
-                  <img src={project.image} alt={project.imageAlt} width={1024} height={460} loading="lazy" className="project-screenshot" data-testid={`img-project-${project.id}`} />
-                </a>
-                <div className="flex flex-1 flex-col p-7 md:p-9">
-                  <p className="eyebrow mb-4 text-[hsl(var(--primary))]" data-testid={`text-project-category-${project.id}`}>
-                    {String(index + 1).padStart(2, '0')} / {project.context}
-                  </p>
-                  <div className="mb-7 flex items-start justify-between gap-4">
-                    <div>
-                      <h3 className="text-3xl font-extrabold tracking-[-.06em]" data-testid={`title-project-${project.id}`}>{project.name}</h3>
-                      <p className="mt-2 max-w-xl text-sm leading-6 text-[hsl(var(--muted-foreground))]" data-testid={`text-project-${project.id}-description`}>{project.description}</p>
-                    </div>
-                  </div>
-                  <div className="mt-auto flex flex-wrap items-center justify-between gap-4">
-                    <div className="flex flex-wrap gap-2" aria-label={`${project.name} features`}>
-                      {project.tags.map((tag) => (
-                        <span className="rounded-full border border-[hsl(var(--foreground)/.15)] px-3 py-1.5 font-mono text-[.58rem] uppercase tracking-[.1em]" key={tag} data-testid={`tag-project-${project.id}-${tag.toLowerCase().replace(/\W+/g, '-')}`}>{tag}</span>
-                      ))}
-                    </div>
-                    <a href={project.href} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${project.name} (new tab)`} className="focus-ring group inline-flex items-center gap-2 text-sm font-bold" data-testid={`link-project-${project.id}`}>
-                      Visit project <ExternalLink size={15} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                    </a>
-                  </div>
-                </div>
+                <img
+                  src={`${import.meta.env.BASE_URL}${project.image}`}
+                  alt={project.alt}
+                  width={1024}
+                  height={index === 3 ? 456 : index === 2 ? 452 : 459}
+                  loading="lazy"
+                  decoding="async"
+                  className="block h-auto w-full"
+                  data-testid={`image-${project.id}`}
+                />
               </article>
             ))}
           </div>
