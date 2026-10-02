@@ -28,7 +28,7 @@ const queryClient = new QueryClient();
 const profile = {
   displayName: 'Your Name',
   monogram: 'YN',
-  role: 'Software engineer / Builder',
+  role: 'Software engineer',
   contact: 'hello@example.com',
 };
 
