@@ -252,7 +252,7 @@ function Home() {
           <a href={profile.github} target="_blank" rel="noopener noreferrer" className="focus-ring inline-flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--foreground))]" aria-label="Victor Ajibua on GitHub" data-testid="link-github"><Github size={17} /> GitHub</a>
           <a href="#top" className="focus-ring ml-4 inline-flex items-center gap-2 font-mono text-[.62rem] uppercase tracking-[.1em]" data-testid="link-back-to-top">Back to top <ArrowUpRight size={14} /></a>
         </div>
-        <p className="font-mono text-[.6rem] uppercase tracking-[.12em] text-[hsl(var(--muted-foreground))]" data-testid="text-footer-copyright">© 2025 / Ship with care.</p>
+        <p className="font-mono text-[.6rem] uppercase tracking-[.12em] text-[hsl(var(--muted-foreground))]" data-testid="text-footer-copyright">© 2025</p>
       </footer>
     </div>
   );
