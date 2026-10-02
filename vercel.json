@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "npx --yes pnpm@10.26.1 install --frozen-lockfile",
+  "buildCommand": "npx --yes pnpm@10.26.1 run typecheck:portfolio && PORT=8080 BASE_PATH=/ npx --yes pnpm@10.26.1 run build:portfolio",
+  "outputDirectory": "artifacts/personal-portfolio/dist/public",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
