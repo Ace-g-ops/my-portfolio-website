@@ -59,6 +59,8 @@
   --card-foreground: 42 33% 95%;
   --muted: 222 26% 21%;
   --muted-foreground: 42 16% 70%;
+  --secondary: 223 35% 14%;
+  --accent: 166 57% 57%;
 }
 
 @layer base {

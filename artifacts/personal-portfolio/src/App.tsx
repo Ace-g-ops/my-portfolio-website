@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import { projects } from '@/data/projects';
+import { ThemeToggle } from '@/components/theme-toggle';
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -67,7 +68,7 @@ function Home() {
             <span className="text-[hsl(var(--primary))]">.</span>
           </a>
           <nav
-            className={`${mobileMenuOpen ? 'flex' : 'hidden'} absolute left-4 right-4 top-[4.7rem] flex-col gap-5 rounded-2xl border border-[hsl(var(--foreground)/.14)] bg-[hsl(var(--card)/.98)] p-6 shadow-xl md:static md:flex md:flex-row md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0 md:shadow-none`}
+            className={`${mobileMenuOpen ? 'flex' : 'hidden'} absolute left-4 right-4 top-[4.7rem] flex-col gap-5 rounded-2xl border border-[hsl(var(--foreground)/.14)] bg-[hsl(var(--card)/.98)] p-6 shadow-xl md:static md:ml-auto md:mr-6 md:flex md:flex-row md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0 md:shadow-none`}
             aria-label="Main navigation"
             data-testid="nav-main"
           >
@@ -78,7 +79,9 @@ function Home() {
               Let&apos;s talk <ArrowUpRight size={14} strokeWidth={2.5} />
             </a>
           </nav>
-          <button
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <button
             type="button"
             className="focus-ring rounded-full border border-[hsl(var(--foreground)/.18)] p-2 md:hidden"
             aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
@@ -87,7 +90,8 @@ function Home() {
             onClick={() => setMobileMenuOpen((open) => !open)}
           >
             {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
+            </button>
+          </div>
         </div>
       </header>
 
